@@ -12,7 +12,7 @@ func main() {
 	// feedly から更新情報を取得する
 	fmt.Println("Hello go feedly")
 	var config Config
-	_, err := toml.DecodeFile("config.toml", &config)
+	_, err := toml.DecodeFile("../config.toml", &config)
 	if err != nil {
 		log.Fatal(err)
 	}
