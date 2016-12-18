@@ -21,7 +21,11 @@ func main() {
 	accessToken := config.Feedly.AccessToken
 	//profile(client, accessToken)
 	fetchCategories(client, accessToken)
-	//getUnreadFeeds(client, accessToken)
+	unreadCounts := getUnreadFeeds(client, accessToken)
+	for i, obj:= range unreadCounts.Unreadcounts {
+		fmt.Println(i, obj)
+	}
+
 
 }
 
@@ -66,13 +70,9 @@ func fetchCategories(client *http.Client, accessToken string) {
 	}
 }
 
-func getUnreadFeeds(client *http.Client, accessToken string) {
-	//url := "https://cloud.feedly.com//v3/markers/counts"
-	//req, _ := http.NewRequest("GET", url, nil)
-	//req.Header.Set("Authorization", accessToken)
-	//resp, _ := client.Do(req)
-	//dumpResp, _ := httputil.DumpResponse(resp, true)
-	//
-	//fmt.Printf("%s", dumpResp)
-	//get(client, url, accessToken)
+func getUnreadFeeds(client *http.Client, accessToken string) *UnreadCounts {
+	url := "https://cloud.feedly.com//v3/markers/counts"
+	var unreadCounts = new (UnreadCounts)
+	get(client, url, accessToken, &unreadCounts)
+	return unreadCounts
 }
